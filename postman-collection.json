@@ -2,39 +2,26 @@
   "info": {
     "name": "Violet Backend API",
     "_postman_id": "abcd-1234-efgh-5678",
-    "description": "CRUD completo para Dolls, Clientes y Cartas con Gin + GORM + SQLite",
+    "description": "CRUD completo para Dolls, Clientes y Cartas con Gin + GORM + SQLite (auto-asignación y flujo de estados)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
-    {
-      "name": "Dolls - Listar",
-      "request": { "method": "GET", "url": "http://localhost:8080/dolls" }
-    },
+    { "name": "Dolls - Listar", "request": { "method": "GET", "url": "http://localhost:8080/dolls" } },
     {
       "name": "Dolls - Crear",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "body": { "mode": "raw", "raw": "{\n  \"nombre\":\"Violet\",\"edad\":18,\"activo\":true,\"cartas\":0\n}" },
+        "body": { "mode": "raw", "raw": "{\n  \"nombre\":\"Violet\",\"edad\":18,\"activo\":true\n}" },
         "url": "http://localhost:8080/dolls"
       }
     },
+    { "name": "Dolls - Eliminar", "request": { "method": "DELETE", "url": "http://localhost:8080/dolls/1" } },
+
+    { "name": "Clientes - Listar", "request": { "method": "GET", "url": "http://localhost:8080/clientes" } },
     {
-      "name": "Dolls - Actualizar",
-      "request": {
-        "method": "PUT",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "body": { "mode": "raw", "raw": "{\n  \"nombre\":\"Violet Updated\",\"edad\":19,\"activo\":false,\"cartas\":1\n}" },
-        "url": "http://localhost:8080/dolls/1"
-      }
-    },
-    {
-      "name": "Dolls - Eliminar",
-      "request": { "method": "DELETE", "url": "http://localhost:8080/dolls/1" }
-    },
-    {
-      "name": "Clientes - Listar",
-      "request": { "method": "GET", "url": "http://localhost:8080/clientes" }
+      "name": "Clientes - Buscar por ciudad",
+      "request": { "method": "GET", "url": "http://localhost:8080/clientes?ciudad=leiden" }
     },
     {
       "name": "Clientes - Crear",
@@ -45,44 +32,38 @@
         "url": "http://localhost:8080/clientes"
       }
     },
+    { "name": "Clientes - Eliminar", "request": { "method": "DELETE", "url": "http://localhost:8080/clientes/1" } },
+
+    { "name": "Cartas - Listar", "request": { "method": "GET", "url": "http://localhost:8080/cartas" } },
     {
-      "name": "Clientes - Actualizar",
-      "request": {
-        "method": "PUT",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "body": { "mode": "raw", "raw": "{\n  \"nombre\":\"Gilbert Updated\",\"ciudad\":\"Ecarte\",\"motivo\":\"Otra carta\",\"contacto\":\"gil@mail.com\"\n}" },
-        "url": "http://localhost:8080/clientes/1"
-      }
-    },
-    {
-      "name": "Clientes - Eliminar",
-      "request": { "method": "DELETE", "url": "http://localhost:8080/clientes/1" }
-    },
-    {
-      "name": "Cartas - Listar",
-      "request": { "method": "GET", "url": "http://localhost:8080/cartas" }
-    },
-    {
-      "name": "Cartas - Crear",
+      "name": "Cartas - Crear (auto asigna Doll)",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "body": { "mode": "raw", "raw": "{\n  \"cliente_id\":1,\"doll_id\":1,\"fecha\":\"2025-08-17\",\"estado\":\"borrador\",\"contenido\":\"Querida Violet...\"\n}" },
+        "body": { "mode": "raw", "raw": "{\n  \"cliente_id\":1,\n  \"fecha\":\"2025-08-20\",\n  \"contenido\":\"Querida ...\"\n}" },
         "url": "http://localhost:8080/cartas"
       }
     },
     {
-      "name": "Cartas - Actualizar",
+      "name": "Cartas - Avanzar estado (borrador → revisado)",
       "request": {
         "method": "PUT",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "body": { "mode": "raw", "raw": "{\n  \"cliente_id\":1,\"doll_id\":1,\"fecha\":\"2025-08-18\",\"estado\":\"enviado\",\"contenido\":\"Carta enviada\"\n}" },
+        "body": { "mode": "raw", "raw": "{\n  \"estado\":\"revisado\",\n  \"contenido\":\"Contenido revisado\"\n}" },
         "url": "http://localhost:8080/cartas/1"
       }
     },
     {
-      "name": "Cartas - Eliminar",
-      "request": { "method": "DELETE", "url": "http://localhost:8080/cartas/1" }
-    }
+      "name": "Cartas - Avanzar estado (revisado → enviado)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"estado\":\"enviado\",\n  \"contenido\":\"Contenido final\"\n}" },
+        "url": "http://localhost:8080/cartas/1"
+      }
+    },
+    { "name": "Cartas - Eliminar (solo borrador)", "request": { "method": "DELETE", "url": "http://localhost:8080/cartas/1" } },
+
+    { "name": "Reporte por Doll", "request": { "method": "GET", "url": "http://localhost:8080/reportes/dolls/1" } }
   ]
 }

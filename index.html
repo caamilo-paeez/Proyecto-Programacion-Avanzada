@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compañía Postal CH - Violet Evergarden</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-feather-alt logo-icon"></i>
+                    <h1>Compañía Postal <span>CH</span></h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Inicio</a></li>
+                        <li><a href="#" class="tab" data-tab="dolls">Dolls</a></li>
+                        <li><a href="#" class="tab" data-tab="clients">Clientes</a></li>
+                        <li><a href="#" class="tab" data-tab="letters">Cartas</a></li>
+                        <li><a href="#" class="tab" data-tab="reports">Reportes</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="dashboard">
+                <div class="card stat-card">
+                    <i class="fas fa-user"></i>
+                    <h3>0</h3>
+                    <p>Auto Memory Dolls</p>
+                </div>
+                <div class="card stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>0</h3>
+                    <p>Clientes Atendidos</p>
+                </div>
+                <div class="card stat-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>0</h3>
+                    <p>Cartas Escritas</p>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" data-tab="dolls">Auto Memory Dolls</div>
+                <div class="tab" data-tab="clients">Clientes</div>
+                <div class="tab" data-tab="letters">Cartas</div>
+            </div>
+
+            <div class="tab-content active" id="dolls">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Auto Memory Dolls</h2>
+                        <button class="btn btn-primary" id="addDollBtn">
+                            <i class="fas fa-plus"></i> Nueva Doll
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Edad</th>
+                                    <th>Estado</th>
+                                    <th>Cartas (hist.)</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="clients">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Clientes</h2>
+                        <button class="btn btn-primary" id="addClientBtn">
+                            <i class="fas fa-plus"></i> Nuevo Cliente
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Ciudad</th>
+                                    <th>Motivo</th>
+                                    <th>Contacto</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="letters">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Cartas</h2>
+                        <button class="btn btn-primary" id="addLetterBtn">
+                            <i class="fas fa-plus"></i> Nueva Carta
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Doll Asignada</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Contenido</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <p style="font-size:0.9rem;margin-top:8px;color:#555">Nota: La Doll se asigna automáticamente si está activa y tiene &lt; 5 cartas en proceso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para agregar/editar Doll -->
+    <div class="modal" id="dollModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nueva Auto Memory Doll</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="dollForm">
+                <div class="form-group">
+                    <label for="dollName">Nombre</label>
+                    <input type="text" id="dollName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="dollAge">Edad</label>
+                    <input type="number" id="dollAge" class="form-control" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="dollStatus">Estado</label>
+                    <select id="dollStatus" class="form-control" required>
+                        <option value="active">Activa</option>
+                        <option value="inactive">Inactiva</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" id="cancelDollBtn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para agregar/editar Cliente -->
+    <div class="modal" id="clientModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nuevo Cliente</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="clientForm">
+                <div class="form-group">
+                    <label for="clientName">Nombre</label>
+                    <input type="text" id="clientName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientCity">Ciudad</label>
+                    <input type="text" id="clientCity" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientReason">Motivo de la carta</label>
+                    <textarea id="clientReason" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="clientContact">Contacto</label>
+                    <input type="text" id="clientContact" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" id="cancelClientBtn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para agregar/editar Carta -->
+    <div class="modal" id="letterModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nueva Carta</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="letterForm">
+                <div class="form-group">
+                    <label for="letterClient">Cliente</label>
+                    <select id="letterClient" class="form-control" required>
+                        <option value="">Seleccione un cliente (ID)</option>
+                        <!-- En una mejora posterior podemos cargar nombres reales con otro fetch y opciones dinámicas -->
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="letterDate">Fecha</label>
+                    <input type="date" id="letterDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="letterContent">Contenido (resumen)</label>
+                    <textarea id="letterContent" class="form-control" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" id="cancelLetterBtn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Compañía Postal CH - Sistema de Gestión de Auto Memory Dolls</p>
+            <p>Inspirado en Violet Evergarden de Kana Akatsuki</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

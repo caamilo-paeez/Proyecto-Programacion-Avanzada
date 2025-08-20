@@ -1,81 +1,27 @@
-# Proyecto-Programacion-Avanzada
-Entregables
+# Compañía Postal CH — Trabajo de Avanzada
 
-"Utilizamos tres herramientas principales:
+Backend en Go (Gin + GORM + SQLite puro Go) y frontend HTML/CSS/JS conectado por `fetch`.
 
-Go (Golang) → el lenguaje en el que está escrito el backend.
+## Requisitos
+- Go 1.20+ (recomendado 1.22)
+- No requiere CGO (usa `github.com/glebarez/sqlite`)
 
-Gin → un framework que nos ayuda a crear las rutas de la API, como /dolls o /clientes.
+## Cómo ejecutar
+```bash
+# En la raíz del proyecto
+go mod tidy
+go run Proyectomain.go
+```
+El backend queda en `http://localhost:8080`.
 
-GORM → que es un ORM, básicamente una librería que conecta nuestro código con la base de datos sin tener que escribir SQL a mano.
+Abre `index.html` en tu navegador (o sirve el directorio con un server estático).
 
-Y como base de datos usamos SQLite, que es una base de datos ligera y sencilla. No necesita servidor, se guarda en un solo archivo."
+## Endpoints clave
+- `POST /cartas` **auto-asigna** una Doll activa con <5 cartas en proceso; la carta inicia en `borrador`.
+- `PUT /cartas/:id` controla el flujo `borrador → revisado → enviado`.
+- `DELETE /cartas/:id` solo permitido si la carta está en `borrador`.
+- `GET /clientes?ciudad=...&nombre=...` búsquedas.
+- `GET /reportes/dolls/:id` reporte por Doll.
 
-2. Estructura del proyecto
-
-"Nuestro backend funciona como una API REST. Esto quiere decir que otras aplicaciones, como un frontend o Postman, pueden hablar con él usando peticiones HTTP.
-
-Tenemos tres módulos principales:
-
-Dolls → representan las autómatas.
-
-Clientes → personas que solicitan cartas.
-
-Cartas → los mensajes que redactan las Dolls."
-
-3. Cómo funciona cada CRUD
-
-"Para cada entidad tenemos un CRUD:
-
-GET → listar o ver los datos.
-
-POST → crear nuevos registros.
-
-PUT → actualizar registros existentes.
-
-DELETE → eliminar registros.
-
-Por ejemplo:
-
-Si hago POST /dolls puedo registrar una Doll nueva.
-
-Si hago GET /dolls veo todas las que existen.
-
-Si hago PUT /dolls/1 actualizo la Doll con id 1.
-
-Si hago DELETE /dolls/1 la elimino."
-
-4. Flujo de trabajo (ejemplo)
-
-"Un ejemplo del uso sería:
-
-Primero creo un Cliente (por ejemplo, Gilbert).
-
-Después registro una Doll (como Violet).
-
-Finalmente creo una Carta, que une a ese cliente con esa Doll, indicando la fecha, el contenido y el estado de la carta.
-
-De esta manera, el sistema queda organizado y fácil de consultar."
-
-5. Demostración práctica
-
-"A través de Postman podemos probar la API. Tenemos una colección con todos los endpoints:
-
-Crear, ver, actualizar y borrar Dolls.
-
-Crear, ver, actualizar y borrar Clientes.
-
-Crear, ver, actualizar y borrar Cartas.
-
-Por ejemplo, puedo enviar un POST /cartas con un JSON que diga:
-
-{
-  \"cliente_id\": 1,
-  \"doll_id\": 1,
-  \"fecha\": \"2025-08-17\",
-  \"estado\": \"borrador\",
-  \"contenido\": \"Querida Violet...\"
-}
-
-
-y automáticamente la carta se guarda en la base de datos."
+## Postman
+Importa `postman-collection.json` y prueba todos los flujos.
