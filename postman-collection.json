@@ -1,0 +1,88 @@
+{
+  "info": {
+    "name": "Violet Backend API",
+    "_postman_id": "abcd-1234-efgh-5678",
+    "description": "CRUD completo para Dolls, Clientes y Cartas con Gin + GORM + SQLite",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Dolls - Listar",
+      "request": { "method": "GET", "url": "http://localhost:8080/dolls" }
+    },
+    {
+      "name": "Dolls - Crear",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"nombre\":\"Violet\",\"edad\":18,\"activo\":true,\"cartas\":0\n}" },
+        "url": "http://localhost:8080/dolls"
+      }
+    },
+    {
+      "name": "Dolls - Actualizar",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"nombre\":\"Violet Updated\",\"edad\":19,\"activo\":false,\"cartas\":1\n}" },
+        "url": "http://localhost:8080/dolls/1"
+      }
+    },
+    {
+      "name": "Dolls - Eliminar",
+      "request": { "method": "DELETE", "url": "http://localhost:8080/dolls/1" }
+    },
+    {
+      "name": "Clientes - Listar",
+      "request": { "method": "GET", "url": "http://localhost:8080/clientes" }
+    },
+    {
+      "name": "Clientes - Crear",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"nombre\":\"Gilbert\",\"ciudad\":\"Leiden\",\"motivo\":\"Carta\",\"contacto\":\"gilbert@mail.com\"\n}" },
+        "url": "http://localhost:8080/clientes"
+      }
+    },
+    {
+      "name": "Clientes - Actualizar",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"nombre\":\"Gilbert Updated\",\"ciudad\":\"Ecarte\",\"motivo\":\"Otra carta\",\"contacto\":\"gil@mail.com\"\n}" },
+        "url": "http://localhost:8080/clientes/1"
+      }
+    },
+    {
+      "name": "Clientes - Eliminar",
+      "request": { "method": "DELETE", "url": "http://localhost:8080/clientes/1" }
+    },
+    {
+      "name": "Cartas - Listar",
+      "request": { "method": "GET", "url": "http://localhost:8080/cartas" }
+    },
+    {
+      "name": "Cartas - Crear",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"cliente_id\":1,\"doll_id\":1,\"fecha\":\"2025-08-17\",\"estado\":\"borrador\",\"contenido\":\"Querida Violet...\"\n}" },
+        "url": "http://localhost:8080/cartas"
+      }
+    },
+    {
+      "name": "Cartas - Actualizar",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"cliente_id\":1,\"doll_id\":1,\"fecha\":\"2025-08-18\",\"estado\":\"enviado\",\"contenido\":\"Carta enviada\"\n}" },
+        "url": "http://localhost:8080/cartas/1"
+      }
+    },
+    {
+      "name": "Cartas - Eliminar",
+      "request": { "method": "DELETE", "url": "http://localhost:8080/cartas/1" }
+    }
+  ]
+}
